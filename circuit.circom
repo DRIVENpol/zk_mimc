@@ -4,10 +4,13 @@ template MiMC5() {
 
     signal input x;
     signal input k;
+    
     signal output h;
 
     var nRounds = 10;
 
+    // Generated big numbers
+    // The first one is always zero (by convention)
     var c[nRounds] = [
         0,
         9011054680180261746819573945573752587822294995734475489070453031,
@@ -22,7 +25,9 @@ template MiMC5() {
     ];
 
     signal lastOutput[nRounds + 1];
+
     var base[nRounds];
+
     signal base2[nRounds];
     signal base4[nRounds];
 
@@ -30,6 +35,7 @@ template MiMC5() {
 
     for(var i = 0; i < nRounds; i++) {
         base[i] = lastOutput[i] + k + c[i];
+
         base2[i] <== base[i] * base[i];
         base4[i] <== base2[i] * base2[i];
 
@@ -41,3 +47,7 @@ template MiMC5() {
 }
 
 component main = MiMC5();
+
+// COMANDS
+// node ./circuit_js/generate_witness.js ./circuit_js/circuit.wasm 
+// snarkjs wtns export json output.wtns output.json
