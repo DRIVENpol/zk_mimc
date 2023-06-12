@@ -49,5 +49,5 @@ template MiMC5() {
 component main = MiMC5();
 
 // COMANDS
-// node ./circuit_js/generate_witness.js ./circuit_js/circuit.wasm 
+// node ./circuit_js/generate_witness.js ./circuit_js/circuit.wasm input.json output.wtns
 // snarkjs wtns export json output.wtns output.json
